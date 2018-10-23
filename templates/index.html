@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="index.css">
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     </head>
+
     <body background="{{ url_for('static',
                 filename='book-cover-background-14.jpg' )}}">
 
@@ -18,11 +19,12 @@
           		     <div class="col-xs-6">
 								      <a href="#" class="active" id="login-form-link">Login</a>
 							     </div>
+
                    <div class="col-xs-6">
 								     <a href="#" id="register-form-link">Register</a>
 							     </div>
           	     </div>
-					    </div>
+					     </div>
 
 
               <div class="panel-body">
@@ -32,7 +34,7 @@
                         <form id="login-form" style="display: block;">
 
                           <div class="form-group">
-                            <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                            <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username">
                           </div>
 
                           <div class="form-group">
@@ -61,8 +63,6 @@
                               </div>
                             </div>
                           </div>
-
-                        </form>
 
                         <form id="register-form" role="form" style="display: none;">
                           <div class="form-group">

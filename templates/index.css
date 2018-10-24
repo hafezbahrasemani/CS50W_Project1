@@ -71,7 +71,8 @@ body {
 	background-color: #53A3CD;
 	border-color: #53A3CD;
 }
-.forgot-password {
+
+/* .forgot-password {
 	text-decoration: underline;
 	color: #888;
 }
@@ -79,7 +80,7 @@ body {
 .forgot-password:focus {
 	text-decoration: underline;
 	color: #666;
-}
+} */
 
 .btn-register {
 	background-color: #1CB94E;

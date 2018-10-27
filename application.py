@@ -24,3 +24,14 @@ db = scoped_session(sessionmaker(bind=engine))
 @app.route("/", methods=["GET", "POST"])
 def index():
     return render_template('index.html')
+
+@app.route("/home", methods=["POST"])
+def register():
+    """Making Registration"""
+
+    #Get form information
+    username = request.form.get("username");
+    password = request.form.get("password");
+    email = request.form.get("email");
+
+    db.execute("INSERT INTO users (username, password, email) VALUES(:username, :password, :email)")

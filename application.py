@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template,session
+from flask import Flask, render_template, session, request
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -25,13 +25,15 @@ db = scoped_session(sessionmaker(bind=engine))
 def index():
     return render_template('index.html')
 
-@app.route("/home", methods=["POST"])
-def register():
-    """Making Registration"""
+@app.route("/success", methods=["POST"])
+def success():
 
     #Get form information
-    username = request.form.get("username");
-    password = request.form.get("password");
-    email = request.form.get("email");
+    username = request.form.get("username")
+    password = request.form.get("password")
 
-    db.execute("INSERT INTO users (username, password, email) VALUES(:username, :password, :email)")
+    db.execute("INSERT INTO users (username, password) VALUES(:username, :password)",
+                                {"username":username, "password":password})
+    db.commit()
+
+    return render_template('success.html')

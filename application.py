@@ -37,3 +37,7 @@ def success():
     db.commit()
 
     return render_template('success.html')
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+        return render_template('signup.html')

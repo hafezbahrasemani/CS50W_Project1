@@ -35,6 +35,7 @@ def login():
 
     if(table != None):
         return render_template('home.html', username = username)
+        
 @app.route("/success", methods=["POST"])
 def success():
 

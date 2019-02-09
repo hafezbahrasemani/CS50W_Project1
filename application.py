@@ -25,17 +25,26 @@ db = scoped_session(sessionmaker(bind=engine))
 def index():
     return render_template('index.html')
 
-@app.route("/home",methods=["GET", "POST"])
+@app.route("/login",methods=["GET", "POST"])
 def login():
-    username = request.form.get("username")
-    password = request.form.get("password")
+    Username = request.form["username"]
+    Password = request.form["password"]
 
     #check to see if someone with this username is in database of users
-    table = db.execute("SELECT * FROM users WHERE username=username AND password=password")
+    #table = db.execute("SELECT * FROM users WHERE username=Username AND password=Password")
 
-    if(table != None):
-        return render_template('home.html', username = username)
-        
+    #if(table != None):
+    #    return render_template('home.html', username = Username)
+
+    query = db.query(User).filter(User.username.in_([Username]), User.password.in_([Password]) )
+    result = query.first()
+
+    if(result):
+        return render_template('home.html', username = Username)
+    else:
+        flash('Wrong Password')
+    return render_template('index.html')
+
 @app.route("/success", methods=["POST"])
 def success():
 

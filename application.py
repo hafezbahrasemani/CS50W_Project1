@@ -1,5 +1,8 @@
 import os
 
+from flask import Flask
+from flask.ext.bcrypt import Bcrypt
+
 from flask import Flask, render_template, session, request
 from flask_session import Session
 from sqlalchemy import create_engine
@@ -21,29 +24,30 @@ engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET","POST"])
 def index():
     return render_template('index.html')
 
 @app.route("/login",methods=["GET", "POST"])
 def login():
+
     Username = request.form["username"]
     Password = request.form["password"]
 
-    #check to see if someone with this username is in database of users
-    #table = db.execute("SELECT * FROM users WHERE username=Username AND password=Password")
+    # check to see if someone with this username is in database of users
+    table = db.execute("SELECT * FROM users WHERE username=Username AND password=Password")
 
-    #if(table != None):
-    #    return render_template('home.html', username = Username)
+    if(table != None):
+       return render_template('home.html', username = Username)
 
-    query = db.query(User).filter(User.username.in_([Username]), User.password.in_([Password]) )
-    result = query.first()
-
-    if(result):
-        return render_template('home.html', username = Username)
+    # query = db.query(User).filter(User.username.in_([Username]), User.password.in_([Password]) )
+    # result = query.first()
+    #
+    # if(result):
+    #     return render_template('success.html')
     else:
         flash('Wrong Password')
-    return render_template('index.html')
+        return render_template('index.html')
 
 @app.route("/success", methods=["POST"])
 def success():

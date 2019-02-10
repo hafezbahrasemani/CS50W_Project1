@@ -1,7 +1,7 @@
 import os
 
 from flask import Flask
-from flask.ext.bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt
 
 from flask import Flask, render_template, session, request
 from flask_session import Session
@@ -9,6 +9,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 app = Flask(__name__, static_url_path='/static')
+bcrypt = Bcrypt(app)
 
 # Check for environment variable
 if not os.getenv("DATABASE_URL"):
@@ -56,8 +57,10 @@ def success():
     username = request.form.get("username")
     password = request.form.get("password")
 
+    pw_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+
     db.execute("INSERT INTO users (username, password) VALUES(:username, :password)",
-                                {"username":username, "password":password})
+                                {"username":username, "password":pw_hash})
     db.commit()
 
     return render_template('success.html')
